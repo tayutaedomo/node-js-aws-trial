@@ -12,17 +12,19 @@ router.get('/', function(req, res, next) {
 var AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 var AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 
-var AWS = require('aws-sdk');
-
 router.get('/s3/get', function(req, res, next) {
+  var AWS = require('aws-sdk');
   var s3 =  new AWS.S3();
   var bucket = 'node-js-sdk-trial.tayutaedomo.net';
   var key = 'white.png';
 
   s3.getObject({Bucket: bucket, Key: key}, function (err, data) {
-    console.log(err, data);
+    if (err) console.err(err);
 
-    res.render('index', { title: 's3 get' + title });
+    res.render('s3/get', {
+      title: 's3 get | ' + title,
+      data: data
+    });
   });
 });
 
@@ -45,7 +47,10 @@ router.get('/s3/url', function(req, res, next) {
     }
   );
 
-  res.render('s3/url', { title: title, url: url });
+  res.render('s3/url', {
+    title: 's3 url | ' + title,
+    url: url
+  });
 });
 
 
