@@ -1,5 +1,6 @@
 var express = require('express');
 var engine = require('ejs-mate');
+var rollbar = require('rollbar');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -59,6 +60,15 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+// Use the rollbar error handler to send exceptions to your rollbar account
+var rollbar_token = process.env.ROLLBAR_ACCESS_TOKEN;
+if (rollbar_token) {
+  rollbar.init(rollbar_token, {
+    environment: process.env.NODE_ENV
+  });
+  app.use(rollbar.errorHandler(rollbar_token));
+}
 
 
 module.exports = app;
