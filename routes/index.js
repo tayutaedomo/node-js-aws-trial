@@ -57,7 +57,7 @@ router.get('/s3/url', function(req, res, next) {
 var CLOUDFRONT_KEYPARE_ID = process.env.CLOUDFRONT_KEYPARE_ID;
 
 router.get('/cloudfront/url', function(req, res, next) {
-  var cfUtil = require('aws-cloudfront-sign');
+  var sign = require('aws-cloudfront-sign');
 
   var host = 'https://doi4gaf5j9pnq.cloudfront.net';
   var path = '/white.png';
@@ -67,7 +67,7 @@ router.get('/cloudfront/url', function(req, res, next) {
   var file_path = __dirname + '/../cert/pk-APKAJ5MB4Q7VGNUPG7CA.pem';
   var private_key = fs.readFileSync(file_path, 'utf-8');
 
-  var url = cfUtil.getSignedUrl(base_url, {
+  var url = sign.getSignedUrl(base_url, {
     keypairId: CLOUDFRONT_KEYPARE_ID,
     expireTime: Date.now() + 60000,
     privateKeyString: private_key
