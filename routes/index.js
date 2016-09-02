@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
+var Promise = require('bluebird');
+var AWS = require('aws-sdk');
+var sqs = Promise.promisifyAll(new AWS.SQS());
+
 var title = 'Node.js aws-sdk Trial';
 
 /* GET home page. */
@@ -13,7 +17,6 @@ var AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 var AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 
 router.get('/s3/get', function(req, res, next) {
-  var AWS = require('aws-sdk');
   var s3 =  new AWS.S3();
   var bucket = 'node-js-sdk-trial.tayutaedomo.net';
   var key = 'white.png';
@@ -77,6 +80,32 @@ router.get('/cloudfront/url', function(req, res, next) {
     title: 'CloudFront URL | ' + title,
     url: url
   });
+});
+
+router.get('/sqs/enqueue', function(req, res, next) {
+  res.render('sqs/enqueue', {
+    title: 'SQS Engueue | ' + title,
+    data: {}
+  })
+});
+
+router.post('/sqs/enqueue', function(req, res, next) {
+  req.body.message;
+
+  var sqs = new AWS.SQS({ region:'eu-west-1' });
+
+  res.render('sqs/enqueue', {
+    title: 'SQS Engueue | ' + title,
+    data: {}
+  })
+});
+
+router.get('/sqs/dequeue', function(req, res, next) {
+  // TODO
+});
+
+router.get('/sqs/list', function(req, res, next) {
+  // TODO
 });
 
 

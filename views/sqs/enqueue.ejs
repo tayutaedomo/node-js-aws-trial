@@ -1,0 +1,30 @@
+<% layout('layout') %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form method="post" action="/sqs/enqueue" class="form-inline">
+      <div class="form-group form-group-sm">
+        <label>Message</label>
+        <input type="text" name="message" class="form-control">
+      </div>
+      <div class="form-group form-group-sm">
+        <button type="submit" class="btn btn-info">Enqueue</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <% if (data.error) { %>
+      <h2>API call Failed</h2>
+      <pre class="bg-danger"><code><%= beautify(JSON.stringify(data.error), { indent_size: 2 }) %></code></pre>
+    <% } %>
+
+    <% if (data.result) { %>
+      <h2>API call succeeded</h2>
+      <pre class="bg-success"><code><%= beautify(JSON.stringify(data.result), { indent_size: 2 }) %></code></pre>
+    <% } %>
+  </div>
+</div>
+
