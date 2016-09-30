@@ -87,6 +87,33 @@ router.get('/s3/head_empty', function(req, res, next) {
   });
 });
 
+// Refer: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listObjects-property
+router.get('/s3/list_objects', function(req, res, next) {
+  var s3 =  Promise.promisifyAll(new AWS.S3());
+  var bucket = 'node-js-sdk-trial.tayutaedomo.net';
+
+  // Use bluebird
+  s3.listObjectsAsync({ Bucket: bucket }).then(function(data) {
+    res.render('s3/list_objects', {
+      title: 'S3 ListObjects | ' + title,
+      data: {
+        error: null,
+        result: data
+      }
+    });
+
+  }).catch(function(err) {
+    console.error(err);
+    res.render('s3/list_objects', {
+      title: 'S3 ListObjects | ' + title,
+      data: {
+        error: err,
+        result: null
+      }
+    });
+  });
+});
+
 
 var CLOUDFRONT_KEYPARE_ID = process.env.CLOUDFRONT_KEYPARE_ID;
 
