@@ -10,6 +10,7 @@ var beautify = require('js-beautify').js_beautify;
 
 var routes = require('./routes/index');
 var s3 = require('./routes/s3');
+var cloudfront = require('./routes/cloudfront');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.locals.beautify = beautify;
 
 app.use('/', routes);
 app.use('/s3', s3);
+app.use('/cloudfront', cloudfront);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
