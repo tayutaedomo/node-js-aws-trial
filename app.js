@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var beautify = require('js-beautify').js_beautify;
 
 var routes = require('./routes/index');
+var s3 = require('./routes/s3');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.locals.beautify = beautify;
 
 app.use('/', routes);
+app.use('/s3', s3);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
