@@ -12,10 +12,21 @@ var title = 'Node.js aws-sdk Trial';
 
 
 router.get('/get', function(req, res, next) {
-  var bucket = 'node-js-sdk-trial.tayutaedomo.net';
-  var key = 'white.png';
+  res.render('s3/get', {
+    title: 'S3 Get | ' + title,
+    data: null
+  });
+});
 
-  s3.getObject({Bucket: bucket, Key: key}, function (err, data) {
+router.post('/get', function(req, res, next) {
+  var bucket = 'node-js-sdk-trial.tayutaedomo.net';
+  var key = req.body.key;
+  var params = {
+    Bucket: bucket,
+    Key: key
+  };
+
+  s3.getObject(params, function (err, data) {
     res.render('s3/get', {
       title: 'S3 Get | ' + title,
       data: {

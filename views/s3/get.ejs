@@ -2,7 +2,28 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <pre class="bg-info"><code><%= beautify(JSON.stringify(data), { indent_size: 2 }) %></code></pre>
+    <form method="post" action="/s3/get">
+      <div class="form-group">
+        <label>Key:</label>
+        <select name="key">
+          <option value="white.png">white.png</option>
+          <option value="white2.png">white2.png</option>
+          <option value="archive/white.png">archive/white.png</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-info">Get</button>
+    </form>
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col-sm-12">
+    <% if (data) { %>
+      <pre class="bg-info"><code><%= beautify(JSON.stringify(data), { indent_size: 2 }) %></code></pre>
+    <% } %>
   </div>
 </div>
 
