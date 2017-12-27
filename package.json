@@ -6,20 +6,20 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "aws-cloudfront-sign": "^2.1.2",
-    "aws-sdk": "2.5.4",
-    "aws-signature-v4": "^1.0.1",
-    "bluebird": "3.4.5",
-    "body-parser": "~1.15.1",
+    "aws-cloudfront-sign": "^2.2.0",
+    "aws-sdk": "^2.175.0",
+    "aws-signature-v4": "^1.1.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "ejs": "~2.4.1",
+    "debug": "^3.1.0",
+    "ejs": "^2.5.7",
     "ejs-mate": "^2.3.0",
-    "express": "~4.13.4",
-    "js-beautify": "^1.6.3",
-    "moment": "^2.14.1",
-    "morgan": "~1.7.0",
-    "rollbar": "^0.6.2",
-    "serve-favicon": "~2.3.0"
+    "express": "^4.16.2",
+    "js-beautify": "^1.7.5",
+    "moment": "^2.20.1",
+    "morgan": "^1.9.0",
+    "rollbar": "^2.3.3",
+    "serve-favicon": "^2.4.5"
   }
 }
