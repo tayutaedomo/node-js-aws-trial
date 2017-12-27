@@ -9,6 +9,7 @@ var AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 var AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 
 var title = 'Node.js aws-sdk Trial';
+var bucket = 'node-js-sdk-trial.tayutaedomo.net';
 
 
 router.get('/get', function(req, res, next) {
@@ -19,7 +20,6 @@ router.get('/get', function(req, res, next) {
 });
 
 router.post('/get', function(req, res, next) {
-  var bucket = 'node-js-sdk-trial.tayutaedomo.net';
   var key = req.body.key;
   var params = {
     Bucket: bucket,
@@ -38,14 +38,13 @@ router.post('/get', function(req, res, next) {
 });
 
 router.get('/url', function(req, res, next) {
-  var backet = 'node-js-sdk-trial.tayutaedomo.net';
   var key = 'white.png';
 
   var v4 = require('aws-signature-v4');
   var url = v4.createPresignedURL(
     'GET',
     's3.amazonaws.com',
-    '/' + backet + '/' + key,
+    '/' + bucket + '/' + key,
     's3',
     'UNSIGNED-PAYLOAD',
     {
@@ -70,7 +69,6 @@ router.get('/head', function(req, res, next) {
 });
 
 router.post('/head', function(req, res, next) {
-  var bucket = 'node-js-sdk-trial.tayutaedomo.net';
   var key = req.body.key;
 
   s3.headObject({Bucket: bucket, Key: key}, function (err, data) {
@@ -85,7 +83,6 @@ router.post('/head', function(req, res, next) {
 });
 
 router.get('/head_empty', function(req, res, next) {
-  var bucket = 'node-js-sdk-trial.tayutaedomo.net';
   var key = 'aaa.png';
 
   s3.headObject({Bucket: bucket, Key: key}, function (err, data) {
@@ -102,7 +99,6 @@ router.get('/head_empty', function(req, res, next) {
 // Refer: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#listObjects-property
 router.get('/list_objects', function(req, res, next) {
   var s3 =  Promise.promisifyAll(new AWS.S3());
-  var bucket = 'node-js-sdk-trial.tayutaedomo.net';
 
   // Use bluebird
   s3.listObjectsAsync({ Bucket: bucket }).then(function(data) {
@@ -121,6 +117,35 @@ router.get('/list_objects', function(req, res, next) {
       data: {
         error: err,
         result: null
+      }
+    });
+  });
+});
+
+router.get('/storage_class', function(req, res, next) {
+  res.render('s3/storage_class', {
+    title: 'S3 StorageClass | ' + title,
+    data: null
+  });
+});
+
+router.post('/storage_class', function(req, res, next) {
+  var key = req.body.key;
+  var storage_class = req.body.storage_class;
+  var params = {
+    Bucket: bucket,
+    CopySource: [bucket, key].join('/'),
+    Key: key,
+    StorageClass: storage_class
+  };
+  console.log('storage_class', params);
+
+  s3.copyObject(params, function (err, data) {
+    res.render('s3/storage_class', {
+      title: 'S3 StorageClass | ' + title,
+      data: {
+        error: err,
+        result: data
       }
     });
   });
