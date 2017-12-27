@@ -63,8 +63,15 @@ router.get('/url', function(req, res, next) {
 });
 
 router.get('/head', function(req, res, next) {
+  res.render('s3/head', {
+    title: 'S3 Head | ' + title,
+    data: null
+  });
+});
+
+router.post('/head', function(req, res, next) {
   var bucket = 'node-js-sdk-trial.tayutaedomo.net';
-  var key = 'white.png';
+  var key = req.body.key;
 
   s3.headObject({Bucket: bucket, Key: key}, function (err, data) {
     res.render('s3/head', {
