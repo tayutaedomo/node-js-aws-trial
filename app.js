@@ -8,9 +8,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var beautify = require('js-beautify').js_beautify;
 
-var routes = require('./routes/index');
-var s3 = require('./routes/s3');
-var cloudfront = require('./routes/cloudfront');
+const routes = require('./routes/index');
+const s3_routes = require('./routes/s3');
+const cloudfront_routes = require('./routes/cloudfront');
+const file_upload_routes = require('./routes/file_upload');
 
 var app = express();
 
@@ -30,9 +31,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // locals
 app.locals.beautify = beautify;
 
+app.use('/s3', s3_routes);
+app.use('/cloudfront', cloudfront_routes);
+app.use('/file_upload', file_upload_routes);
 app.use('/', routes);
-app.use('/s3', s3);
-app.use('/cloudfront', cloudfront);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
