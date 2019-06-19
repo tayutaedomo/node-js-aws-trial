@@ -1,0 +1,27 @@
+<% layout('layout') %>
+
+<h1><%= title %></h1>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3>Reference</h3>
+    <ul>
+      <li>
+        <a href="https://qiita.com/Kazunori-Kimura/items/11882e4f7497e1e59e84" target="_blank">https://qiita.com/Kazunori-Kimura/items/11882e4f7497e1e59e84</a>
+      </li>
+      <li>
+        <a href="https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CloudFront/Signer.html" target="_blank">https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CloudFront/Signer.html</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <p>
+      Pre-signed URL:<br>
+      <a href="<%= data.url %>" target="_blank"><%= data.url %></a>
+    </p>
+  </div>
+</div>
+

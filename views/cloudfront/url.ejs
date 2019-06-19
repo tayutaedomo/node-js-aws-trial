@@ -1,4 +1,24 @@
 <% layout('layout') %>
 
-<a href="<%= url %>" target="_blank"><%= url %></a>
+<h1><%= title %></h1>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3>Reference</h3>
+    <ul>
+      <li>
+        <a href="https://www.npmjs.com/package/aws-cloudfront-sign" target="_blank">https://www.npmjs.com/package/aws-cloudfront-sign</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <p>
+      Pre-signed URL:<br>
+      <a href="<%= url %>" target="_blank"><%= url %></a>
+    </p>
+  </div>
+</div>
 
