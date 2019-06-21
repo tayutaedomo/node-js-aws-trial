@@ -61,6 +61,25 @@ router.get('/url', function(req, res, next) {
   });
 });
 
+router.get('/url_sdk', function(req, res, next) {
+  const local =  {
+    title: 'Pre-signed URL with getSignedUrl | ' + title,
+    data: {
+      url: ''
+    }
+  };
+
+  const key = 'white.png';
+  const params = {
+    Bucket: bucket,
+    Key: key
+  };
+
+  local.data.url = s3.getSignedUrl('getObject', params);
+
+  res.render('s3/url_sdk', local);
+});
+
 router.get('/head', function(req, res, next) {
   res.render('s3/head', {
     title: 'S3 Head | ' + title,
