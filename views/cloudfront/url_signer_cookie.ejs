@@ -17,12 +17,14 @@
 </div>
 
 <div class="row">
-  <h3>Cookie Values:</h3>
+  <h3>Policy:</h3>
   <div class="col-sm-12">
-    <p>
-      Policy Resource: <%= data.resource %>
-    </p>
+    <pre class="bg-info"><code><%= beautify(JSON.stringify(data.policy), { indent_size: 2 }) %></code></pre>
   </div>
+</div>
+
+<div class="row">
+  <h3>Cookie Values:</h3>
   <div class="col-sm-12">
     <% if (data.result) { %>
       <pre class="bg-info"><code><%= beautify(JSON.stringify(data.result), { indent_size: 2 }) %></code></pre>
