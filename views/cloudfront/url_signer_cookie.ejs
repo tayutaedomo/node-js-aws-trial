@@ -1,0 +1,39 @@
+<% layout('layout') %>
+
+<h1><%= title %></h1>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3>Reference</h3>
+    <ul>
+      <li>
+        <a href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-cookies.html" target="_blank">https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-signed-cookies.html</a>
+      </li>
+      <li>
+        <a href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-setting-signed-cookie-canned-policy.html" target="_blank">https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-setting-signed-cookie-canned-policy.html</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <h3>Cookie Values:</h3>
+  <div class="col-sm-12">
+    <p>
+      Policy Resource: <%= data.resource %>
+    </p>
+  </div>
+  <div class="col-sm-12">
+    <% if (data.result) { %>
+      <pre class="bg-info"><code><%= beautify(JSON.stringify(data.result), { indent_size: 2 }) %></code></pre>
+    <% } %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3>Download URLs:</h3>
+    <pre class="bg-info"><code><%= data.curl %></code></pre>
+  </div>
+</div>
+
