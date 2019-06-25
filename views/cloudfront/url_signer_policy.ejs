@@ -1,0 +1,29 @@
+<% layout('layout') %>
+
+<h1><%= title %></h1>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3>Reference</h3>
+    <ul>
+      <li>
+        <a href="https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-creating-signed-url-custom-policy.html#private-content-custom-policy-statement-values" target="_blank">https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-creating-signed-url-custom-policy.html#private-content-custom-policy-statement-values</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h3>Pre-signed URLs:</h3>
+
+    <ul>
+      <% for (var i = 0; i < data.urls.length; i++) { %>
+        <li>
+          <a href="<%= data.urls[i] %>" target="_blank"><%= data.urls[i] %></a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</div>
+
