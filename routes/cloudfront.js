@@ -120,18 +120,29 @@ const get_signed_url_async = async (keypair_id, private_key, options) => {
 router.get('/url_signer_cookie', (req, res, next) => {
   (async () => {
 
-    const base_url = `${CDN_HOST}/white*`;
     const private_key = fs.readFileSync(PRIVATE_KEY_PATH, 'utf-8');
     const expires = moment.utc().add(1, 'days').unix();
 
     const policy = {
       "Statement": [
         {
-          "Resource": base_url,
+          "Resource": `${CDN_HOST}/white*`,
           "Condition":{
             "DateLessThan":{ "AWS:EpochTime": expires }
           }
-        }
+        },
+        // {
+        //   "Resource": `${CDN_HOST}/white.png`,
+        //   "Condition":{
+        //     "DateLessThan":{ "AWS:EpochTime": expires }
+        //   }
+        // },
+        // {
+        //   "Resource": `${CDN_HOST}/white2.png`,
+        //   "Condition":{
+        //     "DateLessThan":{ "AWS:EpochTime": expires }
+        //   }
+        // }
       ]
     };
 
@@ -146,7 +157,7 @@ router.get('/url_signer_cookie', (req, res, next) => {
     const local = {
       title: 'Pre-signed URL with Signer',
       data: {
-        resource: base_url,
+        policy: policy,
         result: result,
         curl: ''
       }
