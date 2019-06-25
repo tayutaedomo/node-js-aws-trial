@@ -117,6 +117,72 @@ const get_signed_url_async = async (keypair_id, private_key, options) => {
 };
 
 
+router.get('/url_signer_cookie', (req, res, next) => {
+  (async () => {
+
+    const base_url = `${CDN_HOST}/white*`;
+    const private_key = fs.readFileSync(PRIVATE_KEY_PATH, 'utf-8');
+    const expires = moment.utc().add(1, 'days').unix();
+
+    const policy = {
+      "Statement": [
+        {
+          "Resource": base_url,
+          "Condition":{
+            "DateLessThan":{ "AWS:EpochTime": expires }
+          }
+        }
+      ]
+    };
+
+    const result = await get_signed_cookie_async(
+      CLOUDFRONT_KEYPARE_ID,
+      private_key,
+      {
+        policy: JSON.stringify(policy)
+      }
+    );
+
+    const local = {
+      title: 'Pre-signed URL with Signer',
+      data: {
+        resource: base_url,
+        result: result,
+        curl: ''
+      }
+    };
+
+    if (result) {
+      const urls = [
+        `${CDN_HOST}/white.png`,
+        `${CDN_HOST}/white2.png`,
+        `${CDN_HOST}/folder/white.png`
+      ];
+
+      urls.forEach(url => {
+        if (local.data.curl != '') local.data.curl += '\n\n';
+        local.data.curl += `$ curl -H 'Cookie:CloudFront-Policy=${result['CloudFront-Policy']}; CloudFront-Key-Pair-Id=${result['CloudFront-Key-Pair-Id']}; CloudFront-Signature=${result['CloudFront-Signature']}' ${url}`;
+      });
+    }
+
+    res.render('cloudfront/url_signer_cookie', local);
+
+  })().catch(next);
+});
+
+const get_signed_cookie_async = async (keypair_id, private_key, options) => {
+  return new Promise((resolve, reject) => {
+    const signer = new AWS.CloudFront.Signer(keypair_id, private_key);
+    signer.getSignedCookie(options, (err, result) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(result);
+    });
+  });
+};
+
+
 
 module.exports = router;
 
