@@ -96,6 +96,7 @@ router.get('/url_signer_policy', (req, res, next) => {
     local.data.urls.push(url.replace(base_url, `${CDN_HOST}/white.png`));
     local.data.urls.push(url.replace(base_url, `${CDN_HOST}/white2.png`));
     local.data.urls.push(url.replace(base_url, `${CDN_HOST}/folder/white.png`));
+    local.data.urls.push(url.replace(base_url, `${CDN_HOST}/public/images/pixel_white.png`));
 
     console.log('local', local);
 
