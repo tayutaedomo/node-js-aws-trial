@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "buildpack_task_trial": "node scripts/buildpack_task_trial.js"
+    "buildpack_task_trial": "node scripts/buildpack_task_trial.js",
+    "buildpack_task": "node scripts/buildpack_task.js"
   },
   "dependencies": {
     "async": "^2.6.3",
