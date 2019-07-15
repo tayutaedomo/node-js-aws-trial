@@ -5,10 +5,11 @@ const fs = require('fs');
 const moment = require('moment');
 const AWS = require('aws-sdk');
 const sign = require('aws-cloudfront-sign');
+const path = require('path');
 
 const CLOUDFRONT_KEYPARE_ID = process.env.CLOUDFRONT_KEYPARE_ID;
 const CDN_HOST = 'https://doi4gaf5j9pnq.cloudfront.net';
-const PRIVATE_KEY_PATH = __dirname + '/../cert/pk-APKAJ5MB4Q7VGNUPG7CA.pem';
+const PRIVATE_KEY_PATH = path.join(__dirname, '..', 'etc', 'cloudfront', 'pk-APKAJ5MB4Q7VGNUPG7CA.pem');
 
 
 router.get('/url', function(req, res, next) {
