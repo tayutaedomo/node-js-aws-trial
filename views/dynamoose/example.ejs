@@ -1,0 +1,24 @@
+<% layout('layout') %>
+
+<!--<div class="row">-->
+<!--  <div class="col-sm-12">-->
+<!--    <form method="post" action="/dynamoose/example">-->
+<!--      <div class="form-group">-->
+<!--        <label>Key:</label>-->
+<!--      </div>-->
+
+<!--      <button type="submit" class="btn btn-info">Submit</button>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<hr>-->
+
+<div class="row">
+  <div class="col-sm-12">
+    <% if (data) { %>
+      <pre class="bg-info"><code><%= beautify(JSON.stringify(data), { indent_size: 2 }) %></code></pre>
+    <% } %>
+  </div>
+</div>
+
