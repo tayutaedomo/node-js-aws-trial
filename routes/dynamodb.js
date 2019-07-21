@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const dynamoose = require('dynamoose');
-
+// const dynamoose = require('dynamoose');
 // const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
 // const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
 // dynamoose.AWS.config.update({
@@ -13,7 +12,7 @@ const dynamoose = require('dynamoose');
 
 const DynamooseCat = require('../models/DynamooseCat');
 
-const title = 'Dynamoose';
+const title = 'DynamoDB';
 
 
 // Refer: https://dynamoosejs.com/
@@ -47,16 +46,16 @@ const createAndGetCat = async () => {
 // };
 // bootStrap();
 
-router.get('/example', (req, res, next) => {
+router.get('/dynamoose_example', (req, res, next) => {
   (async () => {
 
     const cat = await createAndGetCat();
     const local = {
-      title: 'Example | ' + title,
+      title: 'dynamoose Example | ' + title,
       data: { cat: cat }
     };
 
-    res.render('dynamoose/example', local);
+    res.render('dynamodb/dynamoose_example', local);
 
   })().catch(next);
 });

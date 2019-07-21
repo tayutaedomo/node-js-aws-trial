@@ -23,7 +23,7 @@ const routes = require('./routes/index');
 const s3_routes = require('./routes/s3');
 const cloudfront_routes = require('./routes/cloudfront');
 const file_upload_routes = require('./routes/file_upload');
-const dynomoose_routes = require('./routes/dynamoose');
+const dynamodb_routes = require('./routes/dynamodb');
 
 const app = express();
 
@@ -86,7 +86,7 @@ app.locals.beautify = beautify;
 app.use('/s3', s3_routes);
 app.use('/cloudfront', cloudfront_routes);
 app.use('/file_upload', file_upload_routes);
-app.use('/dynamoose', dynomoose_routes);
+app.use('/dynamodb', dynamodb_routes);
 app.use('/', routes);
 
 // catch 404 and forward to error handler
