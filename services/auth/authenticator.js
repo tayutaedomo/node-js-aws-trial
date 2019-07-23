@@ -39,6 +39,7 @@ class Authenticator {
     // ストラテジー：ユーザIDとパスワードを用いた懸賞やOAuthを用いた権限付与、OpenIDを用いた分散認証を実装する
     // localStrategy：ユーザIDとパスワードを用いた認証の実装部分
     passport.use(
+      authSetting.strategyName,
       new LocalStrategy(
         {
           usernameField: authSetting.usernameField,

@@ -9,6 +9,7 @@ const beautify = require('js-beautify').js_beautify;
 const AWS = require('aws-sdk');
 
 const session = require('express-session');
+const connectFlash = require("connect-flash");
 const DynamoDBStore = require('connect-dynamodb')({session: session});
 
 // dynamoose init
@@ -18,12 +19,6 @@ dynamoose.AWS.config.update({
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: 'us-east-1'
 });
-
-const routes = require('./routes/index');
-const s3_routes = require('./routes/s3');
-const cloudfront_routes = require('./routes/cloudfront');
-const file_upload_routes = require('./routes/file_upload');
-const dynamodb_routes = require('./routes/dynamodb');
 
 const app = express();
 
@@ -79,9 +74,25 @@ app.use(session({
   }
 }));
 
+app.use(connectFlash());
+
+
+const Authenticator = require('./services/auth/authenticator');
+// passportの初期化
+Authenticator.initialize(app);
+// 認証情報を持たせる
+Authenticator.setStrategy();
+
 
 // locals
 app.locals.beautify = beautify;
+
+
+const routes = require('./routes/index');
+const s3_routes = require('./routes/s3');
+const cloudfront_routes = require('./routes/cloudfront');
+const file_upload_routes = require('./routes/file_upload');
+const dynamodb_routes = require('./routes/dynamodb');
 
 app.use('/s3', s3_routes);
 app.use('/cloudfront', cloudfront_routes);

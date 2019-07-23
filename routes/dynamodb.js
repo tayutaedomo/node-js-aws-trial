@@ -73,7 +73,7 @@ router.get('/auth/login', (req, res) => {
   // エラーメッセージがあるときは出力させる
   const message = req.flash();
   res.render('dynamodb/auth/login', {
-    message: message.error,
+    message: message.error || '',
     title: 'ログイン'
   });
 });
@@ -85,7 +85,8 @@ router.post('/auth/login', (req, res, next) => {
 
 router.get('/auth/logout', (req, res) => {
   req.logout();
-  res.redirect('/auth/login');
+  //res.redirect('/login');
+  res.redirect(Authenticator.redirect.failure);
 });
 
 // router.get('/', Authenticator.isAuthenticated, function(req, res) {
