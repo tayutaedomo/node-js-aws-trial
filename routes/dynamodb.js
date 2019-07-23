@@ -104,5 +104,31 @@ router.get('/auth', Authenticator.isAuthenticated, (req, res) => {
 
 
 
+router.get('/auth2/signup', (req, res) => {
+  const local = {
+    title: 'Auth2 Sign up | ' + title,
+    data: {
+      form_email: '',
+      form_name: ''
+    }
+  };
+
+  res.render('dynamodb/auth2/signup', local);
+});
+
+router.post('/auth2/signup', (req, res) => {
+  const local = {
+    title: 'Auth2 Sign up | ' + title,
+    data: {
+      form_email: req.body.email || '',
+      form_name: req.body.name || ''
+    }
+  };
+
+  res.render('dynamodb/auth2/signup', local);
+});
+
+
+
 module.exports = router;
 
