@@ -1,5 +1,12 @@
+
+const debug = require('debug')('node-js-aws-trial:routes:dynamodb');
+
 const express = require('express');
 const router = express.Router();
+
+const _ = require('underscore');
+
+const title = 'DynamoDB';
 
 
 // const dynamoose = require('dynamoose');
@@ -12,9 +19,6 @@ const router = express.Router();
 // });
 
 const DynamooseCat = require('../models/DynamooseCat');
-
-const title = 'DynamoDB';
-
 
 // Refer: https://dynamoosejs.com/
 // const startUpAndReturnDynamo = async () => {
@@ -100,6 +104,59 @@ router.get('/auth', Authenticator.isAuthenticated, (req, res) => {
     message: null,
     title: 'Logged in'
   });
+});
+
+
+
+const user_service = require('../services/auth/user');
+
+router.get('/auth2/signup', (req, res) => {
+  const local = {
+    title: 'Auth2 Sign up | ' + title,
+    data: {
+      form_email: '',
+      form_name: ''
+    }
+  };
+
+  res.render('dynamodb/auth2/signup', local);
+});
+
+router.post('/auth2/signup', (req, res, next) => {
+  (async () => {
+
+    const local = {
+      title: 'Auth2 Sign up | ' + title,
+      data: {
+        success: null,
+        error: null,
+        form_email: req.body.email || '',
+        form_name: req.body.name || ''
+      }
+    };
+
+    const param = {
+      username: local.data.form_email,
+      password: req.body.password,
+      name: local.data.form_name
+    };
+
+    if (_.isEmpty(param.username) || _.isEmpty(param.password) || _.isEmpty(param.name)) {
+      local.data.error = 'Invalid inputs';
+      return res.render('dynamodb/auth2/signup', local);
+    }
+
+    const signup = await user_service.create_and_get_user(param);
+
+    debug('signup', signup);
+
+    if (signup.created) {
+      local.success = 'Sign up successfully.';
+    }
+
+    res.render('dynamodb/auth2/signup', local);
+
+  })().catch(next);
 });
 
 
