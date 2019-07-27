@@ -1,6 +1,6 @@
 const dynamoose = require('dynamoose');
 
-const schema_name = 'DynamooseTable';
+const schema_name = 'node-js-aws-trial.DynamooseTable';
 
 const schema = dynamoose.model(schema_name, {
   id: Number,

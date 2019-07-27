@@ -1,6 +1,6 @@
 const dynamoose = require('dynamoose');
 
-const schema_name = 'DynamooseUser';
+const schema_name = 'node-js-aws-trial.DynamooseUser';
 
 const schema = dynamoose.model(schema_name, {
   username: String,
