@@ -161,16 +161,15 @@ router.post('/auth2/signup', (req, res, next) => {
 
 
 
-const test_service = require('../services/dynamodb/test');
+const music_service = require('../services/dynamodb/music');
 
 router.get('/sdk/create_table', (req, res) => {
   const local = {
     title: 'SDK, Create Table | ' + title,
-    data: {
-    }
+    data: {}
   };
 
-  test_service.create_table((err, result) => {
+  music_service.create_table((err, result) => {
     local.data.error = err;
     local.data.result = result;
     res.render('dynamodb/sdk/create_table', local);
@@ -180,14 +179,36 @@ router.get('/sdk/create_table', (req, res) => {
 router.get('/sdk/delete_table', (req, res) => {
   const local = {
     title: 'SDK, Delete Table | ' + title,
-    data: {
-    }
+    data: {}
   };
 
-  test_service.delete_table((err, result) => {
+  music_service.delete_table((err, result) => {
     local.data.error = err;
     local.data.result = result;
     res.render('dynamodb/sdk/delete_table', local);
+  });
+});
+
+router.get('/sdk/put_item', (req, res) => {
+  const local = {
+    title: 'SDK, Put Item | ' + title,
+    data: {}
+  };
+  res.render('dynamodb/sdk/put_item', local);
+});
+
+router.post('/sdk/put_item', (req, res) => {
+  const local = {
+    title: 'SDK, Put Item | ' + title,
+    data: {}
+  };
+
+  const form = req.body;
+
+  music_service.put_item(form, (err, result) => {
+    local.data.error = err;
+    local.data.result = result;
+    res.render('dynamodb/sdk/put_item', local);
   });
 });
 
