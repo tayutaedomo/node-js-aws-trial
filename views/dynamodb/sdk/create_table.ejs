@@ -1,0 +1,12 @@
+<% layout('layout') %>
+
+<h1><%= title %></h1>
+
+<div class="row">
+  <div class="col-sm-12">
+    <% if (data) { %>
+      <pre class="bg-info"><code><%= beautify(JSON.stringify(data), { indent_size: 2 }) %></code></pre>
+    <% } %>
+  </div>
+</div>
+

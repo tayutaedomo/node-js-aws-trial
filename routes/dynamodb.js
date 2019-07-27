@@ -161,5 +161,23 @@ router.post('/auth2/signup', (req, res, next) => {
 
 
 
+const test_service = require('../services/dynamodb/test');
+
+router.get('/sdk/create_table', (req, res) => {
+  const local = {
+    title: 'SDK, Create Table | ' + title,
+    data: {
+    }
+  };
+
+  test_service.create_table((err, result) => {
+    local.data.error = err;
+    local.data.result = result;
+    res.render('dynamodb/sdk/create_table', local);
+  });
+});
+
+
+
 module.exports = router;
 
