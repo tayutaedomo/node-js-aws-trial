@@ -177,6 +177,20 @@ router.get('/sdk/create_table', (req, res) => {
   });
 });
 
+router.get('/sdk/delete_table', (req, res) => {
+  const local = {
+    title: 'SDK, Delete Table | ' + title,
+    data: {
+    }
+  };
+
+  test_service.delete_table((err, result) => {
+    local.data.error = err;
+    local.data.result = result;
+    res.render('dynamodb/sdk/delete_table', local);
+  });
+});
+
 
 
 module.exports = router;

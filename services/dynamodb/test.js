@@ -32,8 +32,8 @@ const create_table = (callback) => {
       }
     ],
     ProvisionedThroughput: {
-      ReadCapacityUnits: 5,
-      WriteCapacityUnits: 5
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1
     },
     TableName: 'node-js-aws-trial.Test'
   };
@@ -45,8 +45,22 @@ const create_table = (callback) => {
   });
 };
 
+// Refer: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#deleteTable-property
+const delete_table = (callback) => {
+  const params = {
+    TableName: 'node-js-aws-trial.Test'
+  };
+
+  dynamodb.deleteTable(params, function(err, data) {
+    callback(err, data);
+    // if (err) console.log(err, err.stack); // an error occurred
+    // else     console.log(data);           // successful response
+  });
+};
+
 
 module.exports = {
-  create_table: create_table
+  create_table: create_table,
+  delete_table: delete_table
 };
 
