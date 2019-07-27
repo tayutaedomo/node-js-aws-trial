@@ -2,6 +2,24 @@
 
 <h1><%= title %></h1>
 
+
+<% if (data.success) { %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-success" role="alert"><%= data.success %></div>
+    </div>
+  </div>
+<% } %>
+
+<% if (data.error) { %>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="alert alert-danger" role="alert"><%= data.error %></div>
+    </div>
+  </div>
+<% } %>
+
+
 <div class="row">
   <div class="col-sm-6 col-md-4">
     <form method="post" action="/dynamodb/auth2/signup">
