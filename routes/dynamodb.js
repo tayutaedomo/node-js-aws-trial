@@ -212,6 +212,30 @@ router.post('/sdk/put_item', (req, res) => {
   });
 });
 
+router.get('/sdk/get_item', (req, res) => {
+  const local = {
+    title: 'SDK, Get Item | ' + title,
+    data: {}
+  };
+  res.render('dynamodb/sdk/get_item', local);
+});
+
+router.post('/sdk/get_item', (req, res) => {
+  const local = {
+    title: 'SDK, Get Item | ' + title,
+    data: {}
+  };
+
+  const artist = req.body.artist;
+  const song_title = req.body.song_title;
+
+  music_service.get_item(artist, song_title, (err, result) => {
+    local.data.error = err;
+    local.data.result = result;
+    res.render('dynamodb/sdk/get_item', local);
+  });
+});
+
 
 
 module.exports = router;

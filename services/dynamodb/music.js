@@ -95,10 +95,33 @@ const put_item = (form, callback) => {
   });
 };
 
+// Refer: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#getItem-property
+const get_item = (artist, song_title, callback) => {
+  const params = {
+    Key: {
+      "Artist": {
+        S: artist
+      },
+      "SongTitle": {
+        S: song_title
+      }
+    },
+    TableName: table_name
+  };
+
+  dynamodb.getItem(params, function(err, data) {
+    callback(err, data);
+    // if (err) console.log(err, err.stack); // an error occurred
+    // else     console.log(data);           // successful response
+  });
+};
+
+
 
 module.exports = {
   create_table: create_table,
   delete_table: delete_table,
-  put_item: put_item
+  put_item: put_item,
+  get_item: get_item
 };
 
