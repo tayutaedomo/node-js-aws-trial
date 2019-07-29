@@ -1,5 +1,7 @@
 'use strict';
 
+const moment = require('moment');
+
 const AWS = require('aws-sdk');
 const dynamodb = new AWS.DynamoDB({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -62,6 +64,8 @@ const delete_table = (callback) => {
 
 // Refer: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#putItem-property
 const put_item = (form, callback) => {
+  const now = moment().toISOString();
+
   const params = {
     Item: {
       'Artist': {
@@ -72,6 +76,12 @@ const put_item = (form, callback) => {
       },
       'AlbumTitle': {
         S: form.album_title
+      },
+      'CreatedAt': {
+        S: now
+      },
+      'UpdatedAt': {
+        S: now
       }
     },
     ReturnConsumedCapacity: 'TOTAL',
