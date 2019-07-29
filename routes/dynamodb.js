@@ -161,5 +161,82 @@ router.post('/auth2/signup', (req, res, next) => {
 
 
 
+const music_service = require('../services/dynamodb/music');
+
+router.get('/sdk/create_table', (req, res) => {
+  const local = {
+    title: 'SDK, Create Table | ' + title,
+    data: {}
+  };
+
+  music_service.create_table((err, result) => {
+    local.data.error = err;
+    local.data.result = result;
+    res.render('dynamodb/sdk/create_table', local);
+  });
+});
+
+router.get('/sdk/delete_table', (req, res) => {
+  const local = {
+    title: 'SDK, Delete Table | ' + title,
+    data: {}
+  };
+
+  music_service.delete_table((err, result) => {
+    local.data.error = err;
+    local.data.result = result;
+    res.render('dynamodb/sdk/delete_table', local);
+  });
+});
+
+router.get('/sdk/put_item', (req, res) => {
+  const local = {
+    title: 'SDK, Put Item | ' + title,
+    data: {}
+  };
+  res.render('dynamodb/sdk/put_item', local);
+});
+
+router.post('/sdk/put_item', (req, res) => {
+  const local = {
+    title: 'SDK, Put Item | ' + title,
+    data: {}
+  };
+
+  const form = req.body;
+
+  music_service.put_item(form, (err, result) => {
+    local.data.error = err;
+    local.data.result = result;
+    res.render('dynamodb/sdk/put_item', local);
+  });
+});
+
+router.get('/sdk/get_item', (req, res) => {
+  const local = {
+    title: 'SDK, Get Item | ' + title,
+    data: {}
+  };
+  res.render('dynamodb/sdk/get_item', local);
+});
+
+router.post('/sdk/get_item', (req, res) => {
+  const local = {
+    title: 'SDK, Get Item | ' + title,
+    data: {}
+  };
+
+  const artist = req.body.artist;
+  const song_title = req.body.song_title;
+
+  music_service.get_item(artist, song_title, (err, result) => {
+    local.data.error = err;
+    local.data.result = result;
+    res.render('dynamodb/sdk/get_item', local);
+  });
+});
+
+
+
 module.exports = router;
 

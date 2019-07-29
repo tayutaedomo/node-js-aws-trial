@@ -1,12 +1,11 @@
 const express = require('express');
 const engine = require('ejs-mate');
 const path = require('path');
-const favicon = require('serve-favicon');
+//const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const beautify = require('js-beautify').js_beautify;
-const AWS = require('aws-sdk');
 
 const session = require('express-session');
 const connectFlash = require("connect-flash");
@@ -39,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // session
 // Refer: https://qiita.com/DeployCat/items/da9f0ae4444575473787
 const DynamoDBStoreOptions = {
-  table: 'node-js-aws-trial-sessions',
+  table: 'node-js-aws-trial.sessions',
   //hashKey: "session-id", //ハッシュキー　デフォルトは"id"
   //prefix: "session",    //ハッシュキーに付与するプレフィックス デフォルトは"sess"
   AWSConfigJSON: {
