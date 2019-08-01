@@ -136,12 +136,12 @@ router.post('/auth2/signup', (req, res, next) => {
     };
 
     const param = {
-      username: local.data.form_email,
+      email: local.data.form_email,
       password: req.body.password,
       name: local.data.form_name
     };
 
-    if (_.isEmpty(param.username) || _.isEmpty(param.password) || _.isEmpty(param.name)) {
+    if (_.isEmpty(param.email) || _.isEmpty(param.password) || _.isEmpty(param.name)) {
       local.data.error = 'Invalid inputs';
       return res.render('dynamodb/auth2/signup', local);
     }
