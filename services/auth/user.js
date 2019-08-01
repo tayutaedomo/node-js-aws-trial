@@ -2,8 +2,6 @@ const bcrypt = require('bcryptjs');
 
 const DynamooseUser = require('../../models/DynamooseUser');
 
-const salt = process.env.PASSWORD_SALT || 'passpass';
-
 
 const create_and_get_user = async (params) => {
   const payload = {
@@ -11,7 +9,10 @@ const create_and_get_user = async (params) => {
     user: null
   };
 
-  payload.user = await DynamooseUser.get({ username: params.email });
+  payload.user = await DynamooseUser.get({
+    username: params.email,
+    email: params.email
+  });
 
   if (payload.user) return payload;
 
@@ -26,11 +27,11 @@ const create_and_get_user = async (params) => {
 
   payload.created = true;
 
-  return user;
+  return payload;
 };
 
 const create_password_hash = (raw_pass) => {
-  return bcrypt.hashSync(raw_pass, salt);
+  return bcrypt.hashSync(raw_pass);
 };
 
 
