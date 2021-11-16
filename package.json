@@ -10,7 +10,7 @@
   "dependencies": {
     "async": "^2.6.3",
     "aws-cloudfront-sign": "^2.2.0",
-    "aws-sdk": "^2.175.0",
+    "aws-sdk": "^2.814.0",
     "aws-signature-v4": "^1.1.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.1",
