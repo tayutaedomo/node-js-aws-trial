@@ -8,7 +8,7 @@
     "buildpack_task": "node scripts/buildpack_task.js"
   },
   "dependencies": {
-    "async": "^2.6.3",
+    "async": "^2.6.4",
     "aws-cloudfront-sign": "^2.2.0",
     "aws-sdk": "^2.175.0",
     "aws-signature-v4": "^1.1.0",
